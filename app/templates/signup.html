@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}Signup - {% endblock %}
+
+{% block content %}
+<h1>Create an Account</h1>
+<form action="/signup" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" min="4" required value="{{ form_data.username if form_data else '' }}">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" min="4" required value="{{ form_data.email if form_data else '' }}">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" min="4" required>
+    <button type="submit">Sign Up</button>
+</form>
+
+{% if errors %}
+<ul style="color: red;">
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,258 @@
+.song-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Songs Grid */
+.songs-grid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Song Card */
+.song-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 600px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Song Details */
+.song-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.song-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  text-align: left;
+}
+
+.song-artist {
+  font-size: 0.8em;
+  color: #fff;
+  margin: 0;
+  text-align: right;
+  font-weight: normal;
+}
+
+/* Play Button */
+.play-button {
+  all: unset;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.player {
+  margin-top: 30px;
+  text-align: center;
+  background-color: #222;
+  color: white;
+  padding: 20px;
+  border-radius: 42px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.player-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  margin-right: 20px;
+}
+
+.thumbnail img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.song-info-display h3 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.song-info-display p {
+  margin: 5px 0 0;
+  font-size: 1em;
+  color: #bbb;
+}
+
+audio {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.player-controls button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 1.2em;
+}
+
+.player-controls button:hover {
+  background-color: #555;
+}
+
+
+li {
+  list-style-type: none;
+}
+
+.centered-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.history-table {
+  border-collapse: collapse;
+  width: 80%;
+  text-align: center;
+}
+
+.text-left-align {
+  text-align: left;
+}
+
+
+.song-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.remove-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.remove-button:hover {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Playlist Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: midnightblue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 42px;
+  cursor: pointer;
+  width: 600px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 600px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropdown-button {
+  background-color: #0c0d62;
+}
+
+.music-player-home {
+  background-color: #A7C7E7;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.music-player-home:hover {
+  background-color: #659AC7;
+  color: white;
+  text-decoration: underline;
+}
+
+/* Now Playing Elements */
+.song-card-row {
+    transition: background-color 0.3s ease;
+}
+
+/*.song-card-row[data-song-id]:hover {*/
+/*    background-color: lightblue;*/
+/*}*/
+
+.song-card-row.playing {
+    background-color: darkblue;
+    color: white;
+    padding-right: 12px;
+}
+
+.now-playing {
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+}
+
+

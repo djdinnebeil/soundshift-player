@@ -1,0 +1,75 @@
+/* Consistent layout for headers and rows */
+.headers-row, .song-row {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr 1fr 2fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.headers-row {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+.song-row {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.song-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+  .action-button {
+  padding: 8px 16px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Update Button */
+.update-btn {
+  background-color: #42af50;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* Remove Button */
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+}
+
+/* Disabled Button */
+.action-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Add hover and active effects for interactivity */
+.action-button:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.action-button:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,132 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+}
+
+/* Playlist Item Styling */
+.playlist-item {
+  margin-bottom: 20px;
+}
+
+.playlist-container {
+  width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  align-self: center;
+  justify-self: center;
+}
+
+.playlist-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Playlist Title */
+.playlist-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.playlist-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.playlist-meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+/* Songs List */
+.playlist-songs {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.song-list-title {
+  font-weight: bold;
+}
+
+.song-item {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Playlist Actions */
+.playlist-actions {
+  margin-top: 15px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+
+.btn-primary {
+  background-color: blue;
+  width: 600px;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+
+.btn-danger {
+  background-color: red;
+}
+
+.btn-secondary {
+  background-color: blue;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  padding: 15px;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}

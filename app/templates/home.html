@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}Main - {% endblock %}
+
+{% block content %}
+<section>
+  <h1>Welcome to SoundShift Player</h1>
+  {% if current_user.is_authenticated %}
+  <p>You are signed in as {{ current_user.username }}.</p>
+  <br>
+  {% endif %}
+  <p>This is a music player project dedicated to developing music player extensions for major music platforms, such as Spotify.</p>
+  <br>
+  {% if not current_user.is_authenticated %}
+  <p>Discover and build new extensions! <a href="/signup">Sign up</a> or <a href="/login">log in</a> to get started.</p>
+  {% endif %}
+</section>
+{% endblock %}

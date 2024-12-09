@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}Listening History - {% endblock %}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='history/styles.css') }}">
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{  url_for('static', filename='history/scripts.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<h1>Your Listening History</h1>
+
+{% if not history %}
+<p>You have no listening history yet. Start playing some music!</p>
+{% else %}
+<div class="centered-table">
+  <table class="history-table">
+    <thead>
+    <tr>
+      <th class="text-left-align">Song</th>
+      <th>Artist</th>
+      <th>Play Count</th>
+      <th>Last Played</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in history %}
+    <tr data-history-id="{{ entry.id }}">
+      <td class="text-left-align">{{ entry.song.name }}</td>
+      <td>{{ entry.song.artist }}</td>
+      <td class="play-count">{{ entry.play_count }}</td>
+      <td class="last-played">{{ entry.last_played if entry.last_played else '' }}</td>
+      <td>
+        {% if entry.play_count == 0 %}
+        <button onclick="resetPlayCount({{ entry.id }})" class="reset-button-disabled" disabled>Reset Play Count
+        </button>
+        {% else %}
+        <button onclick="resetPlayCount({{ entry.id }})" class="reset-button">Reset Play Count</button>
+        {% endif %}
+        <button onclick="removeFromHistory({{ entry.id }})" class="remove-button">Remove</button>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{% endblock %}
