@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block title %}Playlists - {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='playlist/view.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='playlist/view.css') }}">
 {% endblock %}
 {% block scripts %}
-  <script src="{{  url_for('static', filename='playlist/view.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='playlist/view.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -17,32 +17,33 @@
     </a>
   </div>
 
- <ul style="list-style-type: none; padding: 0;">
-  {% for playlist in playlists %}
-  <li id="playlist-{{ playlist.id }}" class="playlist-item">
-    <div class="playlist-container">
-      <h2>
-        <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}" class="playlist-link">
-          {{ playlist.name }}
-        </a>
-      </h2>
-      <p class="playlist-meta">Created: {{ playlist.created_at }}</p>
-      <ul class="playlist-songs">
-        <li class="song-list-title">Songs:</li>
-        {% for song in playlist.songs %}
-        <li class="song-item">{{ song.name }} by {{ song.artist }}</li>
-        {% endfor %}
-      </ul>
+  <ul style="list-style-type: none; padding: 0;">
+    {% for playlist in playlists %}
+      <li id="playlist-{{ playlist.id }}" class="playlist-item">
+        <div class="playlist-container">
+          <h2>
+            <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}" class="playlist-link">
+              {{ playlist.name }}
+            </a>
+          </h2>
+          <p class="playlist-meta">Created: {{ playlist.created_at }}</p>
+          <ul class="playlist-songs">
+            <li class="song-list-title">Songs:</li>
+            {% for song in playlist.songs %}
+              <li class="song-item">{{ song.name }} by {{ song.artist }}</li>
+            {% endfor %}
+          </ul>
 
-      <!-- Edit and Remove buttons -->
-      <div class="playlist-actions">
-        <a href="{{ url_for('playlists.edit_playlist_form', playlist_id=playlist.id) }}" class="btn btn-secondary" style="text-decoration: none;">
-          Edit Playlist
-        </a>
-        <button class="btn btn-danger" onclick="deletePlaylist({{ playlist.id }})">Remove Playlist</button>
-      </div>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
+          <!-- Edit and Remove buttons -->
+          <div class="playlist-actions">
+            <a href="{{ url_for('playlists.edit_playlist_form', playlist_id=playlist.id) }}" class="btn btn-secondary"
+               style="text-decoration: none;">
+              Edit Playlist
+            </a>
+            <button class="btn btn-danger" onclick="deletePlaylist({{ playlist.id }})">Remove Playlist</button>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

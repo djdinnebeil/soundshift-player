@@ -1,6 +1,5 @@
 from app.models.db import db, environment, schema
 from app.models import User
-from werkzeug.security import generate_password_hash
 from sqlalchemy.sql import text
 
 def seed_users():
@@ -23,7 +22,6 @@ def seed_users():
     ]
     db.session.bulk_save_objects(users)
     db.session.commit()
-
 
 def undo_users():
     if environment == "production":

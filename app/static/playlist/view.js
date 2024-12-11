@@ -1,12 +1,13 @@
-  function deletePlaylist(playlistId) {
-    if (!confirm('Are you sure you want to delete this playlist?')) {
-      return;
-    }
+function deletePlaylist(playlistId)
+{
+  if (!confirm('Are you sure you want to delete this playlist?')) {
+    return;
+  }
 
-    fetch(`/playlists/${playlistId}/delete`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    })
+  fetch(`/playlists/${playlistId}/delete`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'}
+  })
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to delete playlist');
@@ -24,4 +25,4 @@
       console.error('Error deleting playlist:', error);
       alert(error.message);
     });
-  }
+}

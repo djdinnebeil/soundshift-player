@@ -7,13 +7,14 @@ document.querySelectorAll('.add-song-btn').forEach(button => {
     const songId = String(button.dataset.songId);
     const songName = button.dataset.songName;
     const songArtist = button.dataset.songArtist;
-    selectedSongs.push({ id: songId, name: songName, artist: songArtist });
+    selectedSongs.push({id: songId, name: songName, artist: songArtist});
     recalculateOrders();
     updateDOMAndInput();
   });
 });
 
-function removeSong(songId, songOrder) {
+function removeSong(songId, songOrder)
+{
   songId = String(songId);
   const index = selectedSongs.findIndex(song => song.id === songId && song.order === songOrder);
   if (index > -1) {
@@ -23,13 +24,15 @@ function removeSong(songId, songOrder) {
   updateDOMAndInput();
 }
 
-function recalculateOrders() {
+function recalculateOrders()
+{
   selectedSongs.forEach((song, index) => {
     song.order = index + 1;
   });
 }
 
-function updateDOMAndInput() {
+function updateDOMAndInput()
+{
   selectedSongsList.innerHTML = '';
 
   selectedSongs.forEach(song => {
@@ -52,7 +55,7 @@ new Sortable(selectedSongsList, {
   onEnd: () => {
     const newOrder = Array.from(selectedSongsList.children).map((item, index) => {
       const songId = item.dataset.songId;
-      return { id: songId, name: item.textContent.split(' by ')[0], artist: '', order: index + 1 };
+      return {id: songId, name: item.textContent.split(' by ')[0], artist: '', order: index + 1};
     });
 
     selectedSongs.splice(0, selectedSongs.length, ...newOrder);
@@ -62,7 +65,8 @@ new Sortable(selectedSongsList, {
   }
 });
 
-function validateUniqueOrders() {
+function validateUniqueOrders()
+{
   const orders = selectedSongs.map(song => song.order);
   const uniqueOrders = new Set(orders);
 

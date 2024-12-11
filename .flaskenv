@@ -1,4 +1,4 @@
 FLASK_APP=app
 FLASK_DEBUG=true
 FLASK_RUN_PORT=8989
-FLASK_ENV='aws-testing'
+FLASK_ENV='testing'

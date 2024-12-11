@@ -27,7 +27,7 @@
   gap: 10px;
 }
 
-  .action-button {
+.action-button {
   padding: 8px 16px;
   font-size: 0.9em;
   border: none;
@@ -76,4 +76,9 @@
 
 #audio-player {
   width: 100%;
+}
+
+#upload-form {
+  display: flex;
+  justify-self: center;
 }

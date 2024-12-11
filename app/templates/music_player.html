@@ -5,41 +5,41 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='music_player/styles.css') }}">
 {% endblock %}
 {% block scripts %}
-<script src="{{  url_for('static', filename='music_player/scripts.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='music_player/scripts.js') }}" defer></script>
 {% endblock %}
 {% block content %}
-<div class="dropdown">
-  <button class="dropdown-button">Select Playlist</button>
-  <div class="dropdown-content">
-    {% for playlist in playlists %}
-    <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a>
-    {% endfor %}
+  <div class="dropdown">
+    <button class="dropdown-button">Select Playlist</button>
+    <div class="dropdown-content">
+      {% for playlist in playlists %}
+        <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a>
+      {% endfor %}
+    </div>
   </div>
-</div>
-<br/>
-<br/>
-<hr/>
-<br/>
-<h1>Music Player Home</h1>
-<div class="player">
-  <h2>Now Playing</h2>
-  <p id="song-info">Select a song to play</p>
-  <audio id="audio-player" controls>
-    <source id="audio-source" src="" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <div class="player-controls">
-    <button onclick="previousSong()">Previous</button>
-    <button onclick="nextSong()">Next</button>
-  </div>
-</div>
-
-<div class="song-list">
-  <h2>Your Songs</h2>
-  <div class="songs-grid">
-
+  <br>
+  <br>
+  <hr>
+  <br>
+  <h1>Music Player Home</h1>
+  <div class="player">
+    <h2>Now Playing</h2>
+    <p id="song-info">Select a song to play</p>
+    <audio id="audio-player" controls>
+      <source id="audio-source" src="" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="player-controls">
+      <button onclick="previousSong()">Previous</button>
+      <button onclick="nextSong()">Next</button>
+    </div>
   </div>
 
-</div>
+  <div class="song-list">
+    <h2>Your Songs</h2>
+    <div class="songs-grid">
+
+    </div>
+
+  </div>
 
 {% endblock %}

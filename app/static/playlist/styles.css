@@ -93,7 +93,6 @@ li {
 }
 
 
-
 .btn-primary {
   background-color: blue;
   width: 600px;
@@ -197,33 +196,33 @@ body {
   width: 100%;
 }
 
-  .playlist-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
+.playlist-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-  .available-songs, .selected-playlist {
-    width: 45%;
-  }
+.available-songs, .selected-playlist {
+  width: 45%;
+}
 
-  .sortable-list {
-    list-style: none;
-    padding: 0;
-    border: 1px solid #ccc;
-    min-height: 100px;
-  }
+.sortable-list {
+  list-style: none;
+  padding: 0;
+  border: 1px solid #ccc;
+  min-height: 100px;
+}
 
-  .sortable-list li {
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    cursor: move;
-  }
+.sortable-list li {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  cursor: move;
+}
 
-  .remove-song-btn {
-    margin-left: 10px;
-    color: red;
-    cursor: pointer;
-  }
+.remove-song-btn {
+  margin-left: 10px;
+  color: red;
+  cursor: pointer;
+}

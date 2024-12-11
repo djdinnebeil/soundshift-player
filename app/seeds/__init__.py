@@ -3,7 +3,7 @@ from .users import seed_users, undo_users
 from .songs import seed_songs, undo_songs
 from .history import seed_history, undo_history
 from .playlists import seed_playlists, undo_playlists
-from app.models.db import db, environment, schema
+from app.models.db import environment
 
 seed_commands = AppGroup('seed')
 

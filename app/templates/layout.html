@@ -14,18 +14,18 @@
     <header>
       <nav class="nav-menu">
         {% if current_user.is_authenticated %}
-        <a href="/songs" class="nav-link">Music Player</a>
-        <a href="/upload" class="nav-link">Upload Song</a>
-        <a href="/playlists" class="nav-link">Playlist Maker</a>
-        <a href="/history" class="nav-link">Listening History</a>
-        <a href="/logout" class="nav-link">Logout</a>
+          <a href="/songs" class="nav-link">Music Player</a>
+          <a href="/upload" class="nav-link">Upload Song</a>
+          <a href="/playlists" class="nav-link">Playlist Maker</a>
+          <a href="/history" class="nav-link">Listening History</a>
+          <a href="/logout" class="nav-link">Logout</a>
         {% else %}
-        <a href="/" class="nav-link">Home</a>
-        <div class="auth-links">
-          <a href="/login" class="auth-link">Login</a>
-          <span class="nav-divider"> / </span>
-          <a href="/signup" class="auth-link">Sign Up</a>
-        </div>
+          <a href="/" class="nav-link">Home</a>
+          <div class="auth-links">
+            <a href="/login" class="auth-link">Login</a>
+            <span class="nav-divider"> / </span>
+            <a href="/signup" class="auth-link">Sign Up</a>
+          </div>
         {% endif %}
       </nav>
     </header>

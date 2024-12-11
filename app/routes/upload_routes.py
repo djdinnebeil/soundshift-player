@@ -12,7 +12,6 @@ from requests.exceptions import RequestException
 
 upload_routes = Blueprint('upload', __name__)
 
-
 @upload_routes.route('/', methods=['GET'])
 @login_required
 def upload_song_page():

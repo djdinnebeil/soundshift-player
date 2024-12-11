@@ -2,68 +2,68 @@
 
 {% block title %}Upload Songs - {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='upload/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='upload/styles.css') }}">
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{  url_for('static', filename='upload/view.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='upload/view.js') }}" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" defer></script>
-<script src="{{  url_for('static', filename='upload/scripts.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='upload/scripts.js') }}" defer></script>
 {% endblock %}
 
 
 {% block content %}
-<h1>Upload a Song</h1>
-
-<form id="upload-form">
-  <label for="file">MP3 File:</label>
-  <input type="file" name="file" id="file" accept=".mp3" required>
-  <button type="button" id="extract-metadata">Extract Metadata</button>
-</form>
-
-<div id="metadata-form" style="display: none;">
-  <h2>Edit Song Details</h2>
-  <form id="save-song-form" action="/upload/save" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" id="file-hidden" style="display: none;">
-    <label for="name">Song Name:</label>
-    <input type="text" name="name" id="name" required>
-    <label for="artist">Artist:</label>
-    <input type="text" name="artist" id="artist" required>
-    <label for="album">Album:</label>
-    <input type="text" name="album" id="album">
-    <label for="genre">Genre:</label>
-    <input type="text" name="genre" id="genre">
-    <label for="duration">Duration (seconds):</label>
-    <input type="number" name="duration" id="duration" readonly required>
-    <button type="submit">Upload to Server</button>
+  <h1>Upload a Song</h1>
+  <br>
+  <form id="upload-form">
+    <label for="file">MP3 File:</label>
+    <input type="file" name="file" id="file" accept=".mp3" required>
+    <button type="button" id="extract-metadata">Extract Metadata</button>
   </form>
-</div>
 
-<div id="upload-status" style="display: none;">
-  <p>Uploading... Please wait.</p>
-  <div id="progress-bar" style="width: 100%; background-color: #ddd;">
-    <div id="progress" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+  <div id="metadata-form" style="display: none;">
+    <h2>Edit Song Details</h2>
+    <form id="save-song-form" action="/upload/save" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" id="file-hidden" style="display: none;">
+      <label for="name">Song Name:</label>
+      <input type="text" name="name" id="name" required>
+      <label for="artist">Artist:</label>
+      <input type="text" name="artist" id="artist" required>
+      <label for="album">Album:</label>
+      <input type="text" name="album" id="album">
+      <label for="genre">Genre:</label>
+      <input type="text" name="genre" id="genre">
+      <label for="duration">Duration (seconds):</label>
+      <input type="number" name="duration" id="duration" readonly required>
+      <button type="submit">Upload to Server</button>
+    </form>
   </div>
-</div>
-<div id="success-message" style="display: none; color: green; margin-top: 20px;">
-  Song uploaded successfully!
-</div>
-<div id="error-message" style="display: none; color: red; margin-top: 20px;">
-  <!-- Error message will appear here -->
-</div>
-<br/><br/>
-<h2>Your Songs</h2>
-<div id="song-list">
-  <div class="headers-row">
-    <span class="column-header">Song Name</span>
-    <span class="column-header">Artist</span>
-    <span class="column-header">Album</span>
-    <span class="column-header">Genre</span>
-    <span class="column-header">Duration</span>
-    <span class="column-header">Actions</span>
+
+  <div id="upload-status" style="display: none;">
+    <p>Uploading... Please wait.</p>
+    <div id="progress-bar" style="width: 100%; background-color: #ddd;">
+      <div id="progress" style="width: 0%; height: 20px; background-color: #4caf50;"></div>
+    </div>
   </div>
-</div>
-<h2 id="current-song" style="color: midnightblue; font-weight: bold; display: none;">Now Playing: None</h2>
-<audio id="audio-player" controls style="display: none;"></audio>
+  <div id="success-message" style="display: none; color: green; margin-top: 20px;">
+    Song uploaded successfully!
+  </div>
+  <div id="error-message" style="display: none; color: red; margin-top: 20px;">
+    <!-- Error message will appear here -->
+  </div>
+  <br/><br/>
+  <h2>Your Songs</h2>
+  <div id="song-list">
+    <div class="headers-row">
+      <span class="column-header">Song Name</span>
+      <span class="column-header">Artist</span>
+      <span class="column-header">Album</span>
+      <span class="column-header">Genre</span>
+      <span class="column-header">Duration</span>
+      <span class="column-header">Actions</span>
+    </div>
+  </div>
+  <h2 id="current-song" style="color: midnightblue; font-weight: bold; display: none;">Now Playing: None</h2>
+  <audio id="audio-player" controls style="display: none;"></audio>
 
 {% endblock %}

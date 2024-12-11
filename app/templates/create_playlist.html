@@ -2,53 +2,54 @@
 
 {% block title %}Create Playlist - {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='playlist/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='playlist/styles.css') }}">
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
-<script src="{{  url_for('static', filename='playlist/scripts.js') }}" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+  <script src="{{ url_for('static', filename='playlist/scripts.js') }}" defer></script>
 {% endblock %}
 
 {% block content %}
-<h1>Create a New Playlist</h1>
+  <h1>Create a New Playlist</h1>
 
-<div class="playlist-form-container">
+  <div class="playlist-form-container">
     <form method="POST" action="{{ url_for('playlists.create_playlist') }}" class="playlist-form">
-        <div class="form-group">
-            <label for="name">Playlist Name</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Enter playlist name" required>
+      <div class="form-group">
+        <label for="name">Playlist Name</label>
+        <input type="text" id="name" name="name" class="form-input" placeholder="Enter playlist name" required>
+      </div>
+
+      <div class="playlist-container">
+        <!-- Left Side: Available Songs -->
+        <div class="available-songs">
+          <h3>Available Songs</h3>
+          <ul id="available-songs" class="song-selection">
+            {% for song in songs %}
+              <li>
+                <button type="button" class="add-song-btn" data-song-id="{{ song.id }}" data-song-name="{{ song.name }}"
+                        data-song-artist="{{ song.artist }}">
+                  Add "{{ song.name }}" by {{ song.artist }}
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
 
-        <div class="playlist-container">
-            <!-- Left Side: Available Songs -->
-            <div class="available-songs">
-                <h3>Available Songs</h3>
-                <ul id="available-songs" class="song-selection">
-                    {% for song in songs %}
-                    <li>
-                        <button type="button" class="add-song-btn" data-song-id="{{ song.id }}" data-song-name="{{ song.name }}" data-song-artist="{{ song.artist }}">
-                            Add "{{ song.name }}" by {{ song.artist }}
-                        </button>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- Right Side: Selected Playlist -->
-            <div class="selected-playlist">
-                <h3>Playlist Songs</h3>
-                <ul id="selected-songs" class="sortable-list">
-                    <!-- Dynamically added songs will appear here -->
-                </ul>
-            </div>
+        <!-- Right Side: Selected Playlist -->
+        <div class="selected-playlist">
+          <h3>Playlist Songs</h3>
+          <ul id="selected-songs" class="sortable-list">
+            <!-- Dynamically added songs will appear here -->
+          </ul>
         </div>
+      </div>
 
-        <!-- Hidden input to store song IDs -->
-        <input type="hidden" name="songs" id="songs-input">
+      <!-- Hidden input to store song IDs -->
+      <input type="hidden" name="songs" id="songs-input">
 
-        <button type="submit" class="btn btn-primary">Create Playlist</button>
+      <button type="submit" class="btn btn-primary">Create Playlist</button>
     </form>
-</div>
+  </div>
 
 {% endblock %}
