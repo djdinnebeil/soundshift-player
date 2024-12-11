@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import Playlist, db, Song
+from datetime import datetime
 
 playlist_routes = Blueprint('playlists', __name__)
 
@@ -8,14 +9,14 @@ playlist_routes = Blueprint('playlists', __name__)
 @login_required
 def view_user_playlists():
     user_id = current_user.id
-    playlists = Playlist.query.filter_by(user_id=user_id).all()
+    playlists = Playlist.query.filter_by(user_id=user_id).order_by(Playlist.name.asc()).all()
     return render_template('playlists.html', playlists=[playlist.to_dict() for playlist in playlists])
 
 @playlist_routes.route('/current', methods=['GET'])
 @login_required
 def get_user_playlists():
     user_id = current_user.id
-    playlists = Playlist.query.filter_by(user_id=user_id).all()
+    playlists = Playlist.query.filter_by(user_id=user_id).order_by(Playlist.name.asc()).all()
     return jsonify([playlist.to_dict() for playlist in playlists])
 
 
@@ -23,7 +24,7 @@ def get_user_playlists():
 @login_required
 def get_playlist(playlist_id):
     playlist = Playlist.query.filter_by(id=playlist_id, user_id=current_user.id).first()
-    playlists = Playlist.query.filter_by(user_id=current_user.id).all()
+    playlists = Playlist.query.filter_by(user_id=current_user.id).order_by(Playlist.name.asc()).all()
     if not playlist:
         return jsonify({"error": "Playlist not found"}), 404
     return render_template('playlist_music_player.html', playlist=playlist.to_dict(), playlists=playlists)
@@ -170,6 +171,7 @@ def update_playlist(playlist_id):
         song_entries = []
 
     playlist.name = name
+    playlist.updated_at = datetime.now()
     db.session.commit()
 
     db.session.execute(

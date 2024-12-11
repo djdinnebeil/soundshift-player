@@ -8,7 +8,7 @@ history_routes = Blueprint('history', __name__)
 @history_routes.route('/', methods=['GET'])
 @login_required
 def view_history():
-    history = History.query.options(joinedload(History.song)).filter_by(user_id=current_user.id).order_by(History.play_count.desc()).all()
+    history = History.query.options(joinedload(History.song)).filter_by(user_id=current_user.id).order_by(History.last_played.desc()).all()
     history_data = [entry.to_dict() for entry in history]
     return render_template('listening_history.html', history=history_data)
 

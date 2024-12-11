@@ -11,7 +11,7 @@ song_routes = Blueprint('songs', __name__)
 def music_player():
     # Fetch all songs uploaded by the current user
     songs = Song.query.filter_by(user_id=current_user.id).all()
-    playlists = Playlist.query.filter_by(user_id=current_user.id).all()
+    playlists = Playlist.query.filter_by(user_id=current_user.id).order_by(Playlist.name.asc()).all()
     serialized_songs = [song.to_dict() for song in songs]  # Serialize the Song objects
     return render_template('music_player.html', songs=serialized_songs, playlists=playlists)
 

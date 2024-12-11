@@ -7,7 +7,7 @@ import requests
 from .aws_routes import upload_file_to_s3, remove_file_from_s3
 from app.config import environment, music_server_url, allowed_extensions
 from sqlalchemy import delete
-from app.utils import format_filename, handle_local_deletion
+from app.utils.file_utils import format_filename, handle_local_deletion
 from requests.exceptions import RequestException
 
 upload_routes = Blueprint('upload', __name__)

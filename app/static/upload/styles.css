@@ -73,3 +73,7 @@
 .action-button:active {
   transform: scale(0.98);
 }
+
+#audio-player {
+  width: 100%;
+}
