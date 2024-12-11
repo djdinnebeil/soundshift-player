@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from flask_login import login_required, current_user
+from app.config import environment, schema
 from app.models import Playlist, db, Song
 from datetime import datetime
 
@@ -93,17 +94,30 @@ def create_playlist():
     for entry in song_entries:
         song = Song.query.get(entry["id"])
         if song:
-            db.session.execute(
-                """
-                INSERT INTO playlist_songs (playlist_id, song_id, song_order)
-                VALUES (:playlist_id, :song_id, :song_order)
-                """,
-                {
-                    "playlist_id": new_playlist.id,
-                    "song_id": entry["id"],
-                    "song_order": entry["song_order"],
-                }
-            )
+            if environment == 'production':
+                db.session.execute(
+                    f"""
+                    INSERT INTO {schema}.playlist_songs (playlist_id, song_id, song_order)
+                    VALUES (:playlist_id, :song_id, :song_order)
+                    """,
+                    {
+                        "playlist_id": new_playlist.id,
+                        "song_id": entry["id"],
+                        "song_order": entry["song_order"],
+                    }
+                )
+            else:
+                db.session.execute(
+                    """
+                    INSERT INTO playlist_songs (playlist_id, song_id, song_order)
+                    VALUES (:playlist_id, :song_id, :song_order)
+                    """,
+                    {
+                        "playlist_id": new_playlist.id,
+                        "song_id": entry["id"],
+                        "song_order": entry["song_order"],
+                    }
+                )
 
     db.session.commit()
     return redirect(url_for('playlists.view_user_playlists'))
@@ -119,17 +133,28 @@ def edit_playlist_form(playlist_id):
 
     available_songs = Song.query.all()
 
-    song_entries = db.session.execute(
-        """
-        SELECT songs.id, songs.name, songs.artist, playlist_songs.song_order
-        FROM playlist_songs
-        JOIN songs ON playlist_songs.song_id = songs.id
-        WHERE playlist_songs.playlist_id = :playlist_id
-        ORDER BY playlist_songs.song_order
-        """,
-        {"playlist_id": playlist.id}
-    ).fetchall()
-
+    if environment == 'production':
+        song_entries = db.session.execute(
+            f"""
+            SELECT songs.id, songs.name, songs.artist, playlist_songs.song_order
+            FROM {schema}.playlist_songs
+            JOIN songs ON playlist_songs.song_id = songs.id
+            WHERE playlist_songs.playlist_id = :playlist_id
+            ORDER BY playlist_songs.song_order
+            """,
+            {"playlist_id": playlist.id}
+        ).fetchall()
+    else:
+        song_entries = db.session.execute(
+            """
+            SELECT songs.id, songs.name, songs.artist, playlist_songs.song_order
+            FROM playlist_songs
+            JOIN songs ON playlist_songs.song_id = songs.id
+            WHERE playlist_songs.playlist_id = :playlist_id
+            ORDER BY playlist_songs.song_order
+            """,
+            {"playlist_id": playlist.id}
+        ).fetchall()
 
     # Convert the results into a list of dictionaries
     playlist_data = {
@@ -174,19 +199,34 @@ def update_playlist(playlist_id):
     playlist.updated_at = datetime.now()
     db.session.commit()
 
-    db.session.execute(
-        "DELETE FROM playlist_songs WHERE playlist_id = :playlist_id",
-        {"playlist_id": playlist.id}
-    )
-
-    for entry in song_entries:
+    if environment == 'production':
         db.session.execute(
-            """
-            INSERT INTO playlist_songs (playlist_id, song_id, song_order)
-            VALUES (:playlist_id, :song_id, :song_order)
-            """,
-            {"playlist_id": playlist.id, "song_id": entry["id"], "song_order": entry["song_order"]}
+            f"DELETE FROM {schema}.playlist_songs WHERE playlist_id = :playlist_id",
+            {"playlist_id": playlist.id}
         )
+
+        for entry in song_entries:
+            db.session.execute(
+                f"""
+                INSERT INTO {schema}.playlist_songs (playlist_id, song_id, song_order)
+                VALUES (:playlist_id, :song_id, :song_order)
+                """,
+                {"playlist_id": playlist.id, "song_id": entry["id"], "song_order": entry["song_order"]}
+            )
+    else:
+        db.session.execute(
+            "DELETE FROM playlist_songs WHERE playlist_id = :playlist_id",
+            {"playlist_id": playlist.id}
+        )
+
+        for entry in song_entries:
+            db.session.execute(
+                """
+                INSERT INTO playlist_songs (playlist_id, song_id, song_order)
+                VALUES (:playlist_id, :song_id, :song_order)
+                """,
+                {"playlist_id": playlist.id, "song_id": entry["id"], "song_order": entry["song_order"]}
+            )
 
     db.session.commit()
     return redirect(url_for('playlists.view_user_playlists'))
@@ -199,10 +239,16 @@ def delete_playlist(playlist_id):
     if not playlist:
         return jsonify({"error": "Playlist not found"}), 404
 
-    db.session.execute(
-        "DELETE FROM playlist_songs WHERE playlist_id = :playlist_id",
-        {"playlist_id": playlist.id}
-    )
+    if environment == 'production':
+        db.session.execute(
+            f"DELETE FROM {schema}.playlist_songs WHERE playlist_id = :playlist_id",
+            {"playlist_id": playlist.id}
+        )
+    else:
+        db.session.execute(
+            "DELETE FROM playlist_songs WHERE playlist_id = :playlist_id",
+            {"playlist_id": playlist.id}
+        )
 
     db.session.delete(playlist)
     db.session.commit()
