@@ -38,24 +38,44 @@ def remove_song_from_playlist(playlist_id, song_id, song_order):
     if not playlist:
         return jsonify({"error": "Playlist not found"}), 404
 
-    entry = db.session.execute(
-        """
-        SELECT * FROM playlist_songs
-        WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
-        """,
-        {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
-    ).fetchone()
+    if environment == 'production':
+        entry = db.session.execute(
+            f"""
+            SELECT * FROM {schema}.playlist_songs
+            WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
+            """,
+            {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
+        ).fetchone()
 
-    if not entry:
-        return jsonify({"error": "Song entry not found in playlist"}), 404
+        if not entry:
+            return jsonify({"error": "Song entry not found in playlist"}), 404
 
-    db.session.execute(
-        """
-        DELETE FROM playlist_songs
-        WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
-        """,
-        {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
-    )
+        db.session.execute(
+            f"""
+            DELETE FROM {schema}.playlist_songs
+            WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
+            """,
+            {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
+        )
+    else:
+        entry = db.session.execute(
+            """
+            SELECT * FROM playlist_songs
+            WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
+            """,
+            {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
+        ).fetchone()
+
+        if not entry:
+            return jsonify({"error": "Song entry not found in playlist"}), 404
+
+        db.session.execute(
+            """
+            DELETE FROM playlist_songs
+            WHERE playlist_id = :playlist_id AND song_id = :song_id AND song_order = :song_order
+            """,
+            {"playlist_id": playlist_id, "song_id": song_id, "song_order": song_order}
+        )
 
     db.session.commit()
     return jsonify({"message": "Song removed successfully", "song_id": song_id, "song_order": song_order}), 200
@@ -138,9 +158,9 @@ def edit_playlist_form(playlist_id):
             f"""
             SELECT songs.id, songs.name, songs.artist, playlist_songs.song_order
             FROM {schema}.playlist_songs
-            JOIN songs ON playlist_songs.song_id = songs.id
-            WHERE playlist_songs.playlist_id = :playlist_id
-            ORDER BY playlist_songs.song_order
+            JOIN {schema}.songs ON {schema}.playlist_songs.song_id = {schema}.songs.id
+            WHERE {schema}.playlist_songs.playlist_id = :playlist_id
+            ORDER BY {schema}.playlist_songs.song_order
             """,
             {"playlist_id": playlist.id}
         ).fetchall()
