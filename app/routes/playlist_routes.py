@@ -2,39 +2,46 @@ from flask import Blueprint, request, jsonify, render_template, redirect, url_fo
 from flask_login import login_required, current_user
 from app.config import environment, schema
 from app.models import Playlist, db, Song
+from app.utils.playlist_utils import playlist_sort_option, get_sorted_playlists
 from datetime import datetime
+
 
 playlist_routes = Blueprint('playlists', __name__)
 
-@playlist_routes.route('/', methods=['GET'])
+@playlist_routes.route('/', methods=['GET', 'POST'])
 @login_required
 def view_user_playlists():
-    user_id = current_user.id
-    playlists = Playlist.query.filter_by(user_id=user_id).order_by(Playlist.name.asc()).all()
+    if request.method == 'POST':
+        sort_order = request.form.get('sort_order', 'name')
+        current_user.playlist_sort_order = sort_order
+        db.session.commit()
+    playlists = get_sorted_playlists()
     return render_template('playlists.html', playlists=[playlist.to_dict() for playlist in playlists])
 
 @playlist_routes.route('/current', methods=['GET'])
 @login_required
 def get_user_playlists():
     user_id = current_user.id
-    playlists = Playlist.query.filter_by(user_id=user_id).order_by(Playlist.name.asc()).all()
+    playlists = get_sorted_playlists()
     return jsonify([playlist.to_dict() for playlist in playlists])
 
 
 @playlist_routes.route('/<int:playlist_id>', methods=['GET'])
 @login_required
 def get_playlist(playlist_id):
-    playlist = Playlist.query.filter_by(id=playlist_id, user_id=current_user.id).first()
-    playlists = Playlist.query.filter_by(user_id=current_user.id).order_by(Playlist.name.asc()).all()
+    user_id = current_user.id
+    playlist = Playlist.query.filter_by(id=playlist_id, user_id=user_id).first()
+    playlists = get_sorted_playlists()
     if not playlist:
         return jsonify({"error": "Playlist not found"}), 404
-    return render_template('playlist_music_player.html', playlist=playlist.to_dict(), playlists=playlists)
+    return render_template('playlist_music_player.html', playlist=playlist.to_dict(), playlists=playlists, playlist_id=playlist_id)
 
 
 @playlist_routes.route('/<int:playlist_id>/songs/<int:song_id>/<int:song_order>', methods=['DELETE'])
 @login_required
 def remove_song_from_playlist(playlist_id, song_id, song_order):
-    playlist = Playlist.query.filter_by(id=playlist_id, user_id=current_user.id).first()
+    user_id = current_user.id
+    playlist = Playlist.query.filter_by(id=playlist_id, user_id=user_id).first()
     if not playlist:
         return jsonify({"error": "Playlist not found"}), 404
 

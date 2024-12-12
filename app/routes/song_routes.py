@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template
 from flask_login import current_user, login_required
 from app.models import db, Song, History, Playlist
 from datetime import datetime
-
+from app.utils.playlist_utils import get_sorted_playlists
 
 song_routes = Blueprint('songs', __name__)
 
@@ -10,8 +10,9 @@ song_routes = Blueprint('songs', __name__)
 @login_required
 def music_player():
     # Fetch all songs uploaded by the current user
-    songs = Song.query.filter_by(user_id=current_user.id).all()
-    playlists = Playlist.query.filter_by(user_id=current_user.id).order_by(Playlist.name.asc()).all()
+    user_id = current_user.id
+    songs = Song.query.filter_by(user_id=user_id).all()
+    playlists = get_sorted_playlists()
     serialized_songs = [song.to_dict() for song in songs]  # Serialize the Song objects
     return render_template('music_player.html', songs=serialized_songs, playlists=playlists)
 

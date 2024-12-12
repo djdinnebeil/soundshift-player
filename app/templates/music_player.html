@@ -11,6 +11,8 @@
   <div class="dropdown">
     <button class="dropdown-button">Select Playlist</button>
     <div class="dropdown-content">
+      <a class="music-player-home">Music Player Home</a>
+
       {% for playlist in playlists %}
         <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a>
       {% endfor %}

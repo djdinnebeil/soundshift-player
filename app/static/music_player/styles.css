@@ -254,3 +254,18 @@ li {
   color: white;
   margin-left: 10px;
 }
+
+.current-playlist {
+  background-color: #e8faea;
+}
+
+.current-playlist:hover {
+  text-decoration: underline;
+  color: white;
+  background-color: #e8faea;
+}
+
+.playlist-class:hover {
+  text-decoration: underline;
+  color: white;
+}
