@@ -13,5 +13,3 @@ def get_sorted_playlists():
     elif sort_order == 'updated':
         playlists = Playlist.query.filter_by(user_id=user_id).order_by(Playlist.updated_at.desc()).all()
     return playlists
-
-

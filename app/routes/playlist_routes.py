@@ -21,7 +21,6 @@ def view_user_playlists():
 @playlist_routes.route('/current', methods=['GET'])
 @login_required
 def get_user_playlists():
-    user_id = current_user.id
     playlists = get_sorted_playlists()
     return jsonify([playlist.to_dict() for playlist in playlists])
 

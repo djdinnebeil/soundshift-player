@@ -20,7 +20,7 @@
       <a href="{{ url_for('songs.music_player') }}" class="music-player-home">Music Player Home</a>
       {% for playlist in playlists %}
         {% if playlist.id == playlist_id %}
-        <a class="current-playlist">Current Playlist: {{ playlist.name }}</a>
+        <a class="current-playlist">Now Playing: {{ playlist.name }}</a>
           {% else %}
           <a href="{{ url_for('playlists.get_playlist', playlist_id=playlist.id) }}" class="playlist-class">{{ playlist.name }}</a>
         {% endif %}

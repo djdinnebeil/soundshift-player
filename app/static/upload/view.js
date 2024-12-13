@@ -196,7 +196,7 @@ function updateSong(index) {
       if (response.ok) {
         fetchSongs(); // Refresh the list
         const successMessage = document.getElementById('success-message');
-        successMessage.innerHTML = ``;
+        successMessage.innerHTML = `${updatedSong.name} updated successfully!`;
         successMessage.style.display = 'block';
       } else {
         alert('Failed to update the song.');

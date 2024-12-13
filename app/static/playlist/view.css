@@ -129,3 +129,40 @@ li {
 .btn-danger:hover {
   background-color: #c82333;
 }
+
+/* Sort Order Dropdown Styling */
+#sort-order-div {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+#sort_order_label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.dropdown {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.dropdown:hover {
+  border-color: #007bff;
+}

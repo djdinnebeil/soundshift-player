@@ -8,22 +8,26 @@
 {% endblock %}
 
 {% block content %}
-
+<!-- Add new playlist button -->
+<div style="margin-bottom: 20px;">
+  <a href="{{ url_for('playlists.create_playlist_form') }}" class="btn btn-primary" style="text-decoration: none;">
+    + Create New Playlist
+  </a>
+</div>
+  <hr>
   <h1>Your Playlists</h1>
-  <form method="POST" action="/playlists">
-    <label for="sort_order">Sort playlists by:</label>
-    <select name="sort_order" id="sort_order" onchange="this.form.submit()">
+<div id="sort-order-div">
+  <form method="POST" action="/playlists" style="display: flex; align-items: center; gap: 10px;">
+    <label for="sort_order" id="sort_order_label" style="font-weight: bold; margin-right: 10px;">Sort playlists by:</label>
+    <select name="sort_order" id="sort_order" class="dropdown" onchange="this.form.submit()">
         <option value="name" {% if current_user.playlist_sort_order == 'name' %}selected{% endif %}>Name</option>
         <option value="updated" {% if current_user.playlist_sort_order == 'updated' %}selected{% endif %}>Most Recently Updated</option>
     </select>
   </form>
+</div>
 
-  <!-- Add new playlist button -->
-  <div style="margin-bottom: 20px;">
-    <a href="{{ url_for('playlists.create_playlist_form') }}" class="btn btn-primary" style="text-decoration: none;">
-      + Create New Playlist
-    </a>
-  </div>
+
+
 
   <ul style="list-style-type: none; padding: 0;">
     {% for playlist in playlists %}
